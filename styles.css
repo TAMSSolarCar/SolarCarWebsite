@@ -413,6 +413,7 @@ section {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     text-align: center;
+    padding-top: 2rem;
 }
 
 .team-member:hover {
@@ -464,7 +465,8 @@ section {
 }
 
 .team-bio {
-    display: none; /* Hidden on main page, only shown in modal */
+    display: none;
+    /* Hidden on main page, only shown in modal */
 }
 
 /* Sponsors Section */
@@ -529,6 +531,33 @@ section {
     color: var(--very-dark-brown);
     font-weight: 600;
     margin-top: auto;
+}
+
+/* Coming Soon Styles */
+.coming-soon {
+    background-color: var(--light-gray);
+    border-radius: 20px;
+    padding: 4rem 2rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.coming-soon-content h2 {
+    color: var(--very-dark-brown);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.coming-soon-content p {
+    color: var(--dark-brown);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    opacity: 0.8;
 }
 
 .become-sponsor {
@@ -931,4 +960,3 @@ footer {
         font-size: 1rem;
     }
 }
-
