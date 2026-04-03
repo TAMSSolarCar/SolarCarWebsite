@@ -20,6 +20,7 @@ if (hamburger && navMenu) {
 // Gallery Filter Functionality
 const filterButtons = document.querySelectorAll('.filter-btn');
 const galleryEntries = document.querySelectorAll('.gallery-entry');
+const galleryEmptyState = document.querySelector('.gallery-empty-state');
 
 if (filterButtons.length > 0 && galleryEntries.length > 0) {
     filterButtons.forEach(button => {
@@ -30,6 +31,13 @@ if (filterButtons.length > 0 && galleryEntries.length > 0) {
             button.classList.add('active');
 
             const filterValue = button.getAttribute('data-filter');
+            const matchCount = Array.from(galleryEntries).filter(entry => {
+                return filterValue === 'all' || entry.getAttribute('data-category') === filterValue;
+            }).length;
+
+            if (galleryEmptyState) {
+                galleryEmptyState.classList.toggle('show', matchCount === 0);
+            }
 
             galleryEntries.forEach(entry => {
                 if (filterValue === 'all' || entry.getAttribute('data-category') === filterValue) {

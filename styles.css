@@ -543,6 +543,22 @@ section {
     line-height: 1.6;
 }
 
+.gallery-empty-state {
+    display: none;
+    margin-top: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 2px dashed rgba(81, 64, 51, 0.25);
+    border-radius: var(--radius-lg);
+    background-color: rgba(252, 189, 157, 0.12);
+    color: var(--dark-brown);
+    text-align: center;
+    font-weight: 600;
+}
+
+.gallery-empty-state.show {
+    display: block;
+}
+
 /* Team Section */
 .team-section {
     background-color: var(--cream);
@@ -785,6 +801,17 @@ section {
     line-height: 1.8;
     margin-bottom: 2rem;
     font-size: 1.1rem;
+}
+
+.donation-option .cta-button.secondary {
+    color: var(--very-dark-brown);
+    border-color: var(--dark-gray);
+}
+
+.donation-option .cta-button.secondary:hover {
+    background-color: var(--peach);
+    border-color: var(--peach);
+    color: var(--very-dark-brown);
 }
 
 .donation-note {
