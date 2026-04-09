@@ -111,8 +111,14 @@ const initGallerySlideshows = () => {
             return;
         }
 
+        const thumbnailSrc = imageEl.getAttribute('src') || imagePaths[0];
+        const orderedImagePaths = [
+            thumbnailSrc,
+            ...imagePaths.filter(path => path !== thumbnailSrc)
+        ];
+
         // Preload each image once so rotations don't flash while waiting on network/disk.
-        imagePaths.forEach(path => {
+        orderedImagePaths.forEach(path => {
             const preload = new Image();
             preload.src = path;
         });
@@ -127,17 +133,18 @@ const initGallerySlideshows = () => {
         let currentIndex = 0;
         let activeImage = imageEl;
         let inactiveImage = secondaryImage;
-        const intervalMs = 2800;
-        const transitionMs = 450;
+        const intervalMs = 1800;
+        const transitionMs = 550;
         let isTransitioning = false;
+        let slideshowInterval = null;
 
-        setInterval(() => {
+        const rotateImage = () => {
             if (isTransitioning) {
                 return;
             }
 
-            const nextIndex = (currentIndex + 1) % imagePaths.length;
-            const nextSrc = imagePaths[nextIndex];
+            const nextIndex = (currentIndex + 1) % orderedImagePaths.length;
+            const nextSrc = orderedImagePaths[nextIndex];
             const preloader = new Image();
 
             isTransitioning = true;
@@ -164,7 +171,36 @@ const initGallerySlideshows = () => {
             };
 
             preloader.src = nextSrc;
-        }, intervalMs);
+        };
+
+        const startSlideshow = () => {
+            if (slideshowInterval) {
+                return;
+            }
+
+            slideshowInterval = setInterval(rotateImage, intervalMs);
+        };
+
+        const stopSlideshow = () => {
+            if (!slideshowInterval) {
+                return;
+            }
+
+            clearInterval(slideshowInterval);
+            slideshowInterval = null;
+        };
+
+        // Keep slideshows running so visitors can immediately see each card rotates images.
+        startSlideshow();
+
+        // Pause while tab is hidden to avoid unnecessary background work.
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopSlideshow();
+            } else {
+                startSlideshow();
+            }
+        });
     });
 };
 
